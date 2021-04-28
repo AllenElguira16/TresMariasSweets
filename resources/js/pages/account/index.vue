@@ -22,11 +22,7 @@
           </button>
         </div>
         <div>
-          <div v-if="accountState === 'sign-in'">
-            <!-- <input type="text" />
-            <input type="password" />
-            <button type="submit">Sign In</button> -->
-          </div>
+          <signin-component v-if="accountState === 'sign-in'" />
           <signup-component v-else-if="accountState === 'sign-up'" />
         </div>
       </div>
@@ -36,10 +32,12 @@
 
 <script>
 import SignupComponent from "./components/signup";
+import SigninComponent from "./components/signin";
+
 export default {
   data() {
     return {
-      accountState: "sign-up",
+      accountState: "sign-in",
     };
   },
   methods: {
@@ -49,6 +47,7 @@ export default {
   },
   components: {
     SignupComponent,
+    SigninComponent,
   },
 };
 </script>

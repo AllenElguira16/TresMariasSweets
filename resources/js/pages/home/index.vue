@@ -2,7 +2,7 @@
   <main class="auto-cols-auto gap-0 grid grid-flow-col">
     <navbar-component></navbar-component>
     <div class="w-full p-4">
-      <header-component :isLoggedIn="isLoggedIn"></header-component>
+      <header-component :isLoggedIn="user !== null"></header-component>
       <div class="py-4">
         <div class="gap-4 grid grid-cols-5">
           <cake-component
@@ -25,12 +25,17 @@ export default {
   data() {
     return {
       cakes: null,
-      isLoggedIn: false,
+      user: null,
     };
   },
   async mounted() {
-    const response = await axios.get("/api/cakes");
+    let response = await axios.get("/api/cakes");
     this.cakes = response.data;
+
+    response = await axios.get("/api/user");
+    if (response.data.success) {
+      this.user = response.data.user;
+    }
     // console.log(response.data);
   },
   components: {
