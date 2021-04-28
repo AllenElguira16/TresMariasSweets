@@ -1845,6 +1845,117 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/account/components/signin.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/account/components/signin.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      input: {
+        // _token: window.Laravel.csrfToken,
+        email: "",
+        password: ""
+      }
+    };
+  },
+  methods: {
+    signin: function signin(e) {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var _yield$axios$post, data;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                e.preventDefault();
+                _context.next = 3;
+                return axios.post("/api/user/sign-in", _this.input);
+
+              case 3:
+                _yield$axios$post = _context.sent;
+                data = _yield$axios$post.data;
+                alert(data.message);
+
+                if (data.success) {
+                  _this.$router.push("/");
+                }
+
+              case 7:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/account/components/signup.vue?vue&type=script&lang=js&":
 /*!***************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/account/components/signup.vue?vue&type=script&lang=js& ***!
@@ -1989,10 +2100,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _components_signup__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/signup */ "./resources/js/pages/account/components/signup.vue");
-//
-//
-//
-//
+/* harmony import */ var _components_signin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/signin */ "./resources/js/pages/account/components/signin.vue");
 //
 //
 //
@@ -2026,10 +2134,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      accountState: "sign-up"
+      accountState: "sign-in"
     };
   },
   methods: {
@@ -2038,7 +2147,8 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   components: {
-    SignupComponent: _components_signup__WEBPACK_IMPORTED_MODULE_0__.default
+    SignupComponent: _components_signup__WEBPACK_IMPORTED_MODULE_0__.default,
+    SigninComponent: _components_signin__WEBPACK_IMPORTED_MODULE_1__.default
   }
 });
 
@@ -2200,7 +2310,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       cakes: null,
-      isLoggedIn: false
+      user: null
     };
   },
   mounted: function mounted() {
@@ -2217,9 +2327,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
             case 2:
               response = _context.sent;
-              _this.cakes = response.data; // console.log(response.data);
+              _this.cakes = response.data;
+              _context.next = 6;
+              return axios.get("/api/user");
 
-            case 4:
+            case 6:
+              response = _context.sent;
+
+              if (response.data.success) {
+                _this.user = response.data.user;
+              } // console.log(response.data);
+
+
+            case 8:
             case "end":
               return _context.stop();
           }
@@ -2283,7 +2403,9 @@ window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
  */
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'; // window.axios.defaults.headers.common['X-CSRF-TOKEN'] = window.Laravel.csrfToken;
+
+window.axios.defaults.headers.common['Authorization'] = "Bearer ".concat(document.querySelector('meta[name="csrf-token"]').content);
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
@@ -20527,6 +20649,45 @@ try {
 
 /***/ }),
 
+/***/ "./resources/js/pages/account/components/signin.vue":
+/*!**********************************************************!*\
+  !*** ./resources/js/pages/account/components/signin.vue ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _signin_vue_vue_type_template_id_130f5bc0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./signin.vue?vue&type=template&id=130f5bc0& */ "./resources/js/pages/account/components/signin.vue?vue&type=template&id=130f5bc0&");
+/* harmony import */ var _signin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./signin.vue?vue&type=script&lang=js& */ "./resources/js/pages/account/components/signin.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _signin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _signin_vue_vue_type_template_id_130f5bc0___WEBPACK_IMPORTED_MODULE_0__.render,
+  _signin_vue_vue_type_template_id_130f5bc0___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/pages/account/components/signin.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/pages/account/components/signup.vue":
 /*!**********************************************************!*\
   !*** ./resources/js/pages/account/components/signup.vue ***!
@@ -20796,6 +20957,22 @@ component.options.__file = "resources/js/pages/home/index.vue"
 
 /***/ }),
 
+/***/ "./resources/js/pages/account/components/signin.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/pages/account/components/signin.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_signin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./signin.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/account/components/signin.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_signin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/pages/account/components/signup.vue?vue&type=script&lang=js&":
 /*!***********************************************************************************!*\
   !*** ./resources/js/pages/account/components/signup.vue?vue&type=script&lang=js& ***!
@@ -20873,6 +21050,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./index.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/home/index.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./resources/js/pages/account/components/signin.vue?vue&type=template&id=130f5bc0&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/pages/account/components/signin.vue?vue&type=template&id=130f5bc0& ***!
+  \*****************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_signin_vue_vue_type_template_id_130f5bc0___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_signin_vue_vue_type_template_id_130f5bc0___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_signin_vue_vue_type_template_id_130f5bc0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./signin.vue?vue&type=template&id=130f5bc0& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/account/components/signin.vue?vue&type=template&id=130f5bc0&");
+
 
 /***/ }),
 
@@ -20995,6 +21189,149 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/account/components/signin.vue?vue&type=template&id=130f5bc0&":
+/*!********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/account/components/signin.vue?vue&type=template&id=130f5bc0& ***!
+  \********************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "form",
+    { attrs: { autocomplete: "off" }, on: { submit: _vm.signin } },
+    [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", [
+        _c("div", { staticClass: "mb-2" }, [
+          _vm._m(1),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model.lazy",
+                value: _vm.input.email,
+                expression: "input.email",
+                modifiers: { lazy: true }
+              }
+            ],
+            staticClass: "block w-full px-4 py-1 border rounded",
+            attrs: {
+              type: "text",
+              id: "sign-up-email",
+              placeholder: "juan_delacruz@sample.com"
+            },
+            domProps: { value: _vm.input.email },
+            on: {
+              change: function($event) {
+                return _vm.$set(_vm.input, "email", $event.target.value)
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "mb-2" }, [
+          _vm._m(2),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model.lazy",
+                value: _vm.input.password,
+                expression: "input.password",
+                modifiers: { lazy: true }
+              }
+            ],
+            staticClass: "block w-full px-4 py-1 border rounded",
+            attrs: {
+              type: "password",
+              id: "sign-up-password",
+              placeholder: "********"
+            },
+            domProps: { value: _vm.input.password },
+            on: {
+              change: function($event) {
+                return _vm.$set(_vm.input, "password", $event.target.value)
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "flex" },
+          [
+            _c(
+              "router-link",
+              {
+                staticClass: "flex-1 text-center border-2",
+                attrs: { to: "/" }
+              },
+              [_vm._v("Home")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "flex-1 bg-primary w-full text-white py-1 rounded",
+                attrs: { type: "submit" }
+              },
+              [_vm._v("\n        Sign In\n      ")]
+            )
+          ],
+          1
+        )
+      ])
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("header", { staticClass: "my-2" }, [
+      _c("h3", [_vm._v("Sign in to your account")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "block w-full", attrs: { for: "sign-up-email" } },
+      [_c("small", [_vm._v("E-Mail")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "block w-full", attrs: { for: "sign-up-password" } },
+      [_c("small", [_vm._v("Password")])]
+    )
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/account/components/signup.vue?vue&type=template&id=27a5b236&":
 /*!********************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/account/components/signup.vue?vue&type=template&id=27a5b236& ***!
@@ -21011,141 +21348,152 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("form", { on: { submit: _vm.signup } }, [
-    _vm._m(0),
-    _vm._v(" "),
-    _c("div", [
-      _c("div", { staticClass: "mb-2" }, [
-        _vm._m(1),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model.lazy",
-              value: _vm.input.firstname,
-              expression: "input.firstname",
-              modifiers: { lazy: true }
-            }
-          ],
-          staticClass: "block w-full px-4 py-1 border",
-          attrs: { type: "text", id: "sign-up-firstname", placeholder: "Juan" },
-          domProps: { value: _vm.input.firstname },
-          on: {
-            change: function($event) {
-              return _vm.$set(_vm.input, "firstname", $event.target.value)
-            }
-          }
-        })
-      ]),
+  return _c(
+    "form",
+    { attrs: { autocomplete: "off" }, on: { submit: _vm.signup } },
+    [
+      _vm._m(0),
       _vm._v(" "),
-      _c("div", { staticClass: "mb-2" }, [
-        _vm._m(2),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model.lazy",
-              value: _vm.input.lastname,
-              expression: "input.lastname",
-              modifiers: { lazy: true }
-            }
-          ],
-          staticClass: "block w-full px-4 py-1 border rounded",
-          attrs: {
-            type: "text",
-            id: "sign-up-lastname",
-            placeholder: "Dela Cruz"
-          },
-          domProps: { value: _vm.input.lastname },
-          on: {
-            change: function($event) {
-              return _vm.$set(_vm.input, "lastname", $event.target.value)
-            }
-          }
-        })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "mb-2" }, [
-        _vm._m(3),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model.lazy",
-              value: _vm.input.email,
-              expression: "input.email",
-              modifiers: { lazy: true }
-            }
-          ],
-          staticClass: "block w-full px-4 py-1 border rounded",
-          attrs: {
-            type: "text",
-            id: "sign-up-email",
-            placeholder: "juan_delacruz@sample.com"
-          },
-          domProps: { value: _vm.input.email },
-          on: {
-            change: function($event) {
-              return _vm.$set(_vm.input, "email", $event.target.value)
-            }
-          }
-        })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "mb-2" }, [
-        _vm._m(4),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model.lazy",
-              value: _vm.input.password,
-              expression: "input.password",
-              modifiers: { lazy: true }
-            }
-          ],
-          staticClass: "block w-full px-4 py-1 border rounded",
-          attrs: {
-            type: "password",
-            id: "sign-up-password",
-            placeholder: "********"
-          },
-          domProps: { value: _vm.input.password },
-          on: {
-            change: function($event) {
-              return _vm.$set(_vm.input, "password", $event.target.value)
-            }
-          }
-        })
-      ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "flex" },
-        [
-          _c(
-            "router-link",
-            { staticClass: "flex-1 text-center border-2", attrs: { to: "/" } },
-            [_vm._v("Home")]
-          ),
+      _c("div", [
+        _c("div", { staticClass: "mb-2" }, [
+          _vm._m(1),
           _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "flex-1 bg-primary w-full text-white py-1 rounded",
-              attrs: { type: "submit" }
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model.lazy",
+                value: _vm.input.firstname,
+                expression: "input.firstname",
+                modifiers: { lazy: true }
+              }
+            ],
+            staticClass: "block w-full px-4 py-1 border",
+            attrs: {
+              type: "text",
+              id: "sign-up-firstname",
+              placeholder: "Juan"
             },
-            [_vm._v("\n        Sign Up\n      ")]
-          )
-        ],
-        1
-      )
-    ])
-  ])
+            domProps: { value: _vm.input.firstname },
+            on: {
+              change: function($event) {
+                return _vm.$set(_vm.input, "firstname", $event.target.value)
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "mb-2" }, [
+          _vm._m(2),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model.lazy",
+                value: _vm.input.lastname,
+                expression: "input.lastname",
+                modifiers: { lazy: true }
+              }
+            ],
+            staticClass: "block w-full px-4 py-1 border rounded",
+            attrs: {
+              type: "text",
+              id: "sign-up-lastname",
+              placeholder: "Dela Cruz"
+            },
+            domProps: { value: _vm.input.lastname },
+            on: {
+              change: function($event) {
+                return _vm.$set(_vm.input, "lastname", $event.target.value)
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "mb-2" }, [
+          _vm._m(3),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model.lazy",
+                value: _vm.input.email,
+                expression: "input.email",
+                modifiers: { lazy: true }
+              }
+            ],
+            staticClass: "block w-full px-4 py-1 border rounded",
+            attrs: {
+              type: "text",
+              id: "sign-up-email",
+              placeholder: "juan_delacruz@sample.com"
+            },
+            domProps: { value: _vm.input.email },
+            on: {
+              change: function($event) {
+                return _vm.$set(_vm.input, "email", $event.target.value)
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "mb-2" }, [
+          _vm._m(4),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model.lazy",
+                value: _vm.input.password,
+                expression: "input.password",
+                modifiers: { lazy: true }
+              }
+            ],
+            staticClass: "block w-full px-4 py-1 border rounded",
+            attrs: {
+              type: "password",
+              id: "sign-up-password",
+              placeholder: "********"
+            },
+            domProps: { value: _vm.input.password },
+            on: {
+              change: function($event) {
+                return _vm.$set(_vm.input, "password", $event.target.value)
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "flex" },
+          [
+            _c(
+              "router-link",
+              {
+                staticClass: "flex-1 text-center border-2",
+                attrs: { to: "/" }
+              },
+              [_vm._v("Home")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "flex-1 bg-primary w-full text-white py-1 rounded",
+                attrs: { type: "submit" }
+              },
+              [_vm._v("\n        Sign Up\n      ")]
+            )
+          ],
+          1
+        )
+      ])
+    ]
+  )
 }
 var staticRenderFns = [
   function() {
@@ -21258,7 +21606,7 @@ var render = function() {
           "div",
           [
             _vm.accountState === "sign-in"
-              ? _c("div")
+              ? _c("signin-component")
               : _vm.accountState === "sign-up"
               ? _c("signup-component")
               : _vm._e()
@@ -21647,7 +21995,7 @@ var render = function() {
         "div",
         { staticClass: "w-full p-4" },
         [
-          _c("header-component", { attrs: { isLoggedIn: _vm.isLoggedIn } }),
+          _c("header-component", { attrs: { isLoggedIn: _vm.user !== null } }),
           _vm._v(" "),
           _c("div", { staticClass: "py-4" }, [
             _c(
