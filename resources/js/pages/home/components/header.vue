@@ -15,22 +15,23 @@
       />
     </div>
     <div v-if="isLoggedIn" class="flex items-center">
-      <div
+      <button
         class="cursor-pointer hover:bg-primary hover:text-white rounded select-none text-center p-2 flex items-center"
       >
         <span class="material-icons">person</span>
         <span>PROFILE</span>
-      </div>
+      </button>
       <div class="mx-2">|</div>
-      <div
+      <button
         class="cursor-pointer hover:bg-primary hover:text-white rounded select-none text-center p-2 flex items-center"
+        @click="signOut"
       >
         <span class="material-icons">power_settings_new</span>
-        <span>LOGOUT</span>
-      </div>
-      <div class="bg-primary flex px-4 py-2 text-white ml-2">
+        <span>SIGN OUT</span>
+      </button>
+      <button class="bg-primary flex px-4 py-2 text-white ml-2">
         <span class="material-icons-outlined">shopping_cart</span>
-      </div>
+      </button>
     </div>
     <div v-else class="flex items-center">
       <router-link
@@ -45,7 +46,14 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
+
 export default {
-  props: ["isLoggedIn"],
+  methods: {
+    ...mapActions("user", ["signOut"]),
+  },
+  computed: {
+    ...mapGetters("user", ["isLoggedIn"]),
+  },
 };
 </script>

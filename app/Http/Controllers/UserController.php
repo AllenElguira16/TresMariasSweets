@@ -90,4 +90,47 @@ class UserController extends Controller
             'message' => 'Sign in successful',
         ]);
     }
+
+    public function GetUser(Request $request) {
+        if (!$request->session()->has('user')) {
+            return [
+                'success' => false,
+                'message' => 'You\'re not currently signed in'
+            ];    
+        }
+
+        $user = $request->session()->get('user');
+        
+        return [
+            'success' => true,
+            'user' => [
+                'firstname' => $user->firstname,
+                'lastname' => $user->lastname,
+                'email' => $user->email,
+            ]
+        ];
+    }
+
+    public function DestroyUserSession(Request $request) {
+        if (!$request->session()->has('user')) {
+            return [
+                'success' => false,
+                'message' => 'You\'re not currently signed in'
+            ];    
+        }
+        
+        $user = $request->session()->flush();
+        
+        if ($request->session()->has('user')) {
+            return [
+                'success' => false,
+                'message' => 'Error signing out'
+            ];    
+        }
+
+        return [
+            'success' => true,
+            'message' => 'Logout Successfully'
+        ];
+    }
 }

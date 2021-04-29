@@ -27,23 +27,6 @@ Route::get('/cakes', [CakeController::class, 'cakeList']);
 Route::prefix('/user')->group(function () {
     Route::post('/sign-up', [UserController::class, 'SignUp']);
     Route::post('/sign-in', [UserController::class, 'SignIn']);
-    Route::get('/', function(Request $request) {
-        if (!$request->session()->has('user')) {
-            return [
-                'success' => false,
-                'user' => 'You\'re not currently logged in'
-            ];    
-        }
-
-        $user = $request->session()->get('user');
-        
-        return [
-            'success' => true,
-            'user' => [
-                'firstname' => $user->firstname,
-                'lastname' => $user->lastname,
-                'email' => $user->email,
-            ]
-        ];
-    });
+    Route::get('/', [UserController::class, 'GetUser']);
+    Route::delete('/sign-out', [UserController::class, 'DestroyUserSession']);
 });

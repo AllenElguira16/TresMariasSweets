@@ -27,8 +27,5 @@
 <script>
 export default {
   props: ["cake"],
-  mounted() {
-    console.log(this.cake);
-  },
 };
 </script>
