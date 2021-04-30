@@ -1,7 +1,8 @@
 import VueRouter from 'vue-router';
 import Home from './home';
 import Admin from './admin';
-import Account from './account'
+import Auth from './auth'
+import Account from './account';
 
 /**
  * @type {import('vue-router').RouteConfig[]}
@@ -12,8 +13,12 @@ const routes = [
     component: Home
   },
   {
+    path: '/auth',
+    component: Auth
+  },
+  {
     path: '/account',
-    component: Account
+    component: Account,
   },
   {
     path: '/admin',

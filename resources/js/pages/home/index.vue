@@ -27,7 +27,6 @@ export default {
   async mounted() {
     await this.setCakes();
     await this.setUser();
-    console.log(this.cakes);
   },
   components: {
     NavbarComponent,

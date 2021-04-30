@@ -8,24 +8,22 @@
         <div class="flex pt-2 text-gray-500">
           <button
             class="flex-1 border-b-2 py-2"
-            :class="{ 'border-primary': accountState === 'edit' }"
-            @click="changeAccountState('edit')"
+            :class="{ 'border-primary': accountState === 'sign-in' }"
+            @click="changeAccountState('sign-in')"
           >
-            EDIT
+            SIGN IN
           </button>
           <button
             class="flex-1 border-b-2 py-2"
-            :class="{ 'border-primary': accountState === 'delete' }"
-            @click="changeAccountState('delete')"
+            :class="{ 'border-primary': accountState === 'sign-up' }"
+            @click="changeAccountState('sign-up')"
           >
-            DELETE
+            SIGN UP
           </button>
         </div>
         <div>
-          <details-component v-if="accountState === 'edit'" />
-          <div v-else-if="accountState === 'delete'">
-            <div>Delete Account</div>
-          </div>
+          <signin-component v-if="accountState === 'sign-in'" />
+          <signup-component v-else-if="accountState === 'sign-up'" />
         </div>
       </div>
     </section>
@@ -33,12 +31,13 @@
 </template>
 
 <script>
-import DetailsComponent from "./components/details";
+import SignupComponent from "./components/signup";
+import SigninComponent from "./components/signin";
 
 export default {
   data() {
     return {
-      accountState: "edit",
+      accountState: "sign-in",
     };
   },
   methods: {
@@ -47,7 +46,8 @@ export default {
     },
   },
   components: {
-    DetailsComponent,
+    SignupComponent,
+    SigninComponent,
   },
 };
 </script>

@@ -45,10 +45,13 @@ class UserController extends Controller
             'password' => $request->password
         ]);
 
+        $user = User::find($id);
+        $request->session()->put('user', $user);
+
         return response()->json([
             'success' => true,
-            'message' => 'Sign Up Successful, try logging in',
-            'user' => User::find($id)
+            'message' => 'Sign Up Successful',
+            'user' => $user
         ]);
     }
 
@@ -88,6 +91,53 @@ class UserController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Sign in successful',
+            'user' => $user
+        ]);
+    }
+
+    public function EditAccount(Request $request) {
+
+        if (!$request->firstname || !$request->lastname || !$request->email || !$request->password) {
+            return response()->json([
+                'success' => false,
+                'message' => 'inputs should not be empty',
+            ]);
+        }
+
+        if (count_chars($request->firstname) <= 2) {
+            return response()->json([
+                'success' => false,
+                'message' => 'firstname should be atleast 2 or more characters',
+            ]);    
+        }
+
+        if (count_chars($request->lastname) <= 2) {
+            return response()->json([
+                'success' => false,
+                'message' => 'firstname should be atleast 2 or more characters',
+            ]);    
+        }
+
+        if (count_chars($request->password) <= 8) {
+            return response()->json([
+                'success' => false,
+                'message' => 'password should be atleast 8 or more characters',
+            ]);    
+        }
+
+        User::find($request->id)->update([
+            'firstname' => $request->firstname,
+            'lastname' => $request->lastname,
+            'email' => $request->email,
+            'password' => $request->password    
+        ]);
+
+        $user = User::find($request->id);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Edit Account Successful',
+            'user' => $user
         ]);
     }
 
@@ -100,10 +150,12 @@ class UserController extends Controller
         }
 
         $user = $request->session()->get('user');
+        $user = User::find($user->id);
         
         return [
             'success' => true,
             'user' => [
+                'id' => $user->id,
                 'firstname' => $user->firstname,
                 'lastname' => $user->lastname,
                 'email' => $user->email,
@@ -119,7 +171,7 @@ class UserController extends Controller
             ];    
         }
         
-        $user = $request->session()->flush();
+        $request->session()->flush();
         
         if ($request->session()->has('user')) {
             return [
@@ -130,7 +182,7 @@ class UserController extends Controller
 
         return [
             'success' => true,
-            'message' => 'Logout Successfully'
+            'message' => 'Signout Successfully'
         ];
     }
 }
