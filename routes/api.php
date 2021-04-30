@@ -25,9 +25,14 @@ Route::get('/cakes', [CakeController::class, 'cakeList']);
 
 
 Route::prefix('/user')->group(function () {
-    Route::post('/sign-up', [UserController::class, 'SignUp']);
-    Route::post('/sign-in', [UserController::class, 'SignIn']);
-    Route::put('/edit-account', [UserController::class, 'EditAccount']);
-    Route::get('/', [UserController::class, 'GetUser']);
-    Route::delete('/sign-out', [UserController::class, 'DestroyUserSession']);
+    Route::get('/auth', [UserController::class, 'GetUser']);
+
+    Route::post('/auth/sign-up', [UserController::class, 'SignUp']);
+    Route::post('/auth/sign-in', [UserController::class, 'SignIn']);
+    Route::post('/auth/sign-out', [UserController::class, 'DestroyUserSession']);
+    
+    Route::put('/auth/{id}', [UserController::class, 'EditAccount']);
+    
+    Route::delete('/auth/{id}', [UserController::class, 'DeleteUser']);
+
 });

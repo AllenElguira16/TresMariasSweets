@@ -73,7 +73,6 @@ export default {
   data() {
     return {
       input: {
-        id: "",
         firstname: "",
         lastname: "",
         email: "",

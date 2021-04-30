@@ -141,6 +141,39 @@ class UserController extends Controller
         ]);
     }
 
+    public function DeleteUser(Request $request) {
+        if (!$request->session()->has('user')) {
+            return [
+                'success' => false,
+                'message' => 'You\'re not currently signed in'
+            ];    
+        }
+
+        $user = User::where('id', $request->id);
+
+        if (!$user) {
+            return [
+                'success' => false,
+                'message' => 'Incorrect user id'
+            ];
+        }
+
+        $user = $user->delete();
+        $request->session()->flush();
+
+        if (!$user) {
+            return [
+                'success' => false,
+                'message' => 'Error deleting user'
+            ];
+        }
+
+        return [
+            'success' => true,
+            'message' => 'User deleted'
+        ];
+    }
+
     public function GetUser(Request $request) {
         if (!$request->session()->has('user')) {
             return [
