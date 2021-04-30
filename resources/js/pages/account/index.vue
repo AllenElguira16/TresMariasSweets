@@ -22,10 +22,8 @@
           </button>
         </div>
         <div>
-          <details-component v-if="accountState === 'edit'" />
-          <div v-else-if="accountState === 'delete'">
-            <div>Delete Account</div>
-          </div>
+          <edit-component v-if="accountState === 'edit'" />
+          <delete-component v-else-if="accountState === 'delete'" />
         </div>
       </div>
     </section>
@@ -33,7 +31,8 @@
 </template>
 
 <script>
-import DetailsComponent from "./components/details";
+import EditComponent from "./components/edit";
+import DeleteComponent from "./components/delete";
 
 export default {
   data() {
@@ -47,7 +46,8 @@ export default {
     },
   },
   components: {
-    DetailsComponent,
+    EditComponent,
+    DeleteComponent,
   },
 };
 </script>

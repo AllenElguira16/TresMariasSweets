@@ -13,40 +13,48 @@ const user = {
     setUser: (state, payload) => state.user = payload,
   },
   actions: {
-    async setUser(state) {
-      const { data } = await axios.get('/api/user');
+    async setUser({ commit }) {
+      const { data } = await axios.get('/api/user/auth');
       if (data.success) {
-        state.commit('setUser', data.user)
+        commit('setUser', data.user)
       }
     },
-    async signin(state, payload) {
-      const { data } = await axios.post('/api/user/sign-in', payload);
+    async signin({ commit }, payload) {
+      const { data } = await axios.post('/api/user/auth/sign-in', payload);
       alert(data.message);
       if (data.success) {
-        state.commit('setUser', data.user);
+        commit('setUser', data.user);
         router.push('/');
       }
     },
-    async signup(state, payload) {
-      const { data } = await axios.post("/api/user/sign-up", payload);
+    async signup({ commit }, payload) {
+      const { data } = await axios.post("/api/user/auth/sign-up", payload);
       alert(data.message);
       if (data.success) {
-        state.commit('setUser', data.user);
+        commit('setUser', data.user);
         router.push('/');
       }
     },
-    async editAccount(state, payload) {
-      const { data } = await axios.put("/api/user/edit-account", payload);
-      alert(data.message);
+    async signout({ commit }) {
+      const { data } = await axios.post('/api/user/auth/sign-out');
       if (data.success) {
-        state.commit('setUser', data.user);
-        router.go('/');
+        commit('setUser', null);
       }
     },
-    async signout(state) {
-      const { data } = await axios.delete('/api/user/sign-out');
+    async editAccount({ commit, state }, payload) {
+      const { data } = await axios.put(`/api/user/auth/${state.user.id}`, payload);
+      alert(data.message);
       if (data.success) {
-        state.commit('setUser', null);
+        commit('setUser', data.user);
+        window.location.href = '/'
+      }
+    },
+    async deleteAccount({ commit, state }) {
+      const { data } = await axios.delete(`/api/user/auth/${state.user.id}`);
+      alert(data.message);
+      if (data.success) {
+        commit('setUser', null);
+        window.location.href = '/'
       }
     },
   },
