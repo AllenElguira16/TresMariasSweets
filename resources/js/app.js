@@ -1,20 +1,16 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faBars, faPhone, faEnvelope, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-
-import router from './router';
-import './bootstrap';
-import './index';
-
-library.add(faBars, faPhone, faEnvelope, faMapMarkerAlt)
-
-Vue.component('font-awesome-icon', FontAwesomeIcon)
+import Vuex from 'vuex';
 
 Vue.use(VueRouter);
 
+import router from './pages/router';
+import './bootstrap';
+import './index';
+import store from './store';
+
 new Vue({
   router,
-  template: '<router-view></router-view>'
+  template: '<router-view/>',
+  store
 }).$mount('#app')

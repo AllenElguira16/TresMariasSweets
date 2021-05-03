@@ -3,25 +3,32 @@
 @tailwind utilities;
 
 @layer base {
-    h1 {
-      @apply text-3xl;
-    }
-    h2 {
-      @apply text-2xl;
-    }
-    h3 {
-      @apply text-xl;
-    }
-    /* a {
-      @apply text-blue-600 underline;
-    } */
+  h1 {
+    @apply text-3xl;
+  }
+  h2 {
+    @apply text-2xl;
+  }
+  h3 {
+    @apply text-xl;
+  }
+  /* a {
+    @apply text-blue-600 underline;
+  } */
+}
+
+/* @layer utilities {
+} */
+
+:focus-visible, :focus {
+  outline: none!important;
 }
 
 body {
-    background-image: url(/images/logo.png);
-    height: 100vh;
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+  /* background-color: theme('colors.gray.100'); */
+  @apply bg-gray-100;
 }
+
+@import '~material-icons/iconfont/material-icons.css'
+
+

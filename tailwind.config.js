@@ -1,4 +1,4 @@
-module.exports = {
+const config = {
   purge: [
     './resources/**/*.blade.php',
     './resources/**/*.js',
@@ -9,6 +9,10 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['Arial', 'Helvetica', 'sans-serif']
+      },
+      colors: {
+        primary: '#F18B8E',
+        white: '#FFFFFF'
       }
     },
   },
@@ -17,3 +21,5 @@ module.exports = {
   },
   plugins: [],
 }
+
+module.exports = config;

@@ -3,6 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\CakeController; 
+use App\Http\Controllers\UserController; 
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,6 +17,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+Route::get('/cakes', [CakeController::class, 'cakeList']);
+
+
+Route::prefix('/user')->group(function () {
+    Route::get('/auth', [UserController::class, 'GetUser']);
+
+    Route::post('/auth/sign-up', [UserController::class, 'SignUp']);
+    Route::post('/auth/sign-in', [UserController::class, 'SignIn']);
+    Route::post('/auth/sign-out', [UserController::class, 'DestroyUserSession']);
+    
+    Route::put('/auth/{id}', [UserController::class, 'EditAccount']);
+    
+    Route::delete('/auth/{id}', [UserController::class, 'DeleteUser']);
+
 });
