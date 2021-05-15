@@ -31,8 +31,8 @@
 </template>
 
 <script>
-import EditComponent from "./components/edit";
-import DeleteComponent from "./components/delete";
+import EditComponent from "./_components/edit";
+import DeleteComponent from "./_components/delete";
 
 export default {
   data() {
