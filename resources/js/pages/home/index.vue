@@ -19,9 +19,9 @@
 <script>
 import { mapActions, mapState } from "vuex";
 
-import NavbarComponent from "./components/navbar";
-import HeaderComponent from "./components/header";
-import CakeComponent from "./components/cake";
+import NavbarComponent from "./_components/navbar";
+import HeaderComponent from "./_components/header";
+import CakeComponent from "../_components/cake";
 
 export default {
   async mounted() {

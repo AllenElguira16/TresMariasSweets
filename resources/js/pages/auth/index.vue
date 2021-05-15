@@ -31,8 +31,8 @@
 </template>
 
 <script>
-import SignupComponent from "./components/signup";
-import SigninComponent from "./components/signin";
+import SignupComponent from "./_components/signup";
+import SigninComponent from "./_components/signin";
 
 export default {
   data() {
