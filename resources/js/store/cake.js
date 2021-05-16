@@ -25,6 +25,12 @@ import axios from 'axios';
       if (response.data.success) {
         state.dispatch('setCakes');
       }
+    },
+    async editCake(state, { id, input }) {
+      const response = await axios.put(`/api/cakes/${id}`, input);
+      if (response.data.success) {
+        state.dispatch('setCakes');
+      }
     }
   }
 }
