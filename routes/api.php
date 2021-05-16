@@ -24,6 +24,7 @@ use App\Http\Controllers\UserController;
 Route::prefix('/cakes')->group(function () {
     Route::get('/', [CakeController::class, 'cakeList']);
     Route::post('/', [CakeController::class, 'addCake']);
+    Route::put('/{id}', [CakeController::class, 'editCake']);
 });
 
 

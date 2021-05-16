@@ -53,4 +53,38 @@ class CakeController extends Controller
             ]
         ];
     }
+
+    public function editCake(Request $request) {
+        if ($request->title === null || count_chars($request->title) < 2) {
+            return [
+                'success' => false,
+                'message' => 'Title should be greater than 2'
+            ];    
+        }
+
+        if ($request->init_price === null || $request->init_price <= 0) {
+            return [
+                'success' => false,
+                'message' => 'Initial Price should be greater than 0'
+            ];    
+        }
+
+        if ($request->picture === null) {
+            return [
+                'success' => false,
+                'message' => 'Picture is required',
+            ];    
+        }
+
+        Cake::find($request->id)->update([
+            'title' => $request->title,
+            'init_price' => $request->init_price,
+            'picture' => $request->picture
+        ]);
+        
+        return [
+            'success' => true,
+            'message' => 'Putang Ina Niyong Lahat'
+        ];
+    }
 }
