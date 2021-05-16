@@ -87,4 +87,16 @@ class CakeController extends Controller
             'message' => 'Putang Ina Niyong Lahat'
         ];
     }
+
+    public function deleteCake(Request $request) {
+
+        $cake = Cake::find($request->id);
+
+        $cake->delete();
+
+        return [
+            'success' => true,
+            'message' => 'Cake deleted'
+        ];
+    }
 }

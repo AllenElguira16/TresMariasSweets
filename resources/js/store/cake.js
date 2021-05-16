@@ -31,6 +31,12 @@ import axios from 'axios';
       if (response.data.success) {
         state.dispatch('setCakes');
       }
+    },
+    async deleteCake(state, { id }) {
+      const response = await axios.delete(`/api/cakes/${id}`);
+      if (response.data.success) {
+        state.dispatch('setCakes');
+      }
     }
   }
 }
