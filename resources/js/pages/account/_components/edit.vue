@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="() => editAccount(input)" autocomplete="off">
+  <form @submit.prevent="onEditAccount" autocomplete="off">
     <header class="my-2">
       <h3>Edit your account</h3>
     </header>
@@ -13,7 +13,7 @@
           type="text"
           id="sign-up-firstname"
           placeholder="Juan"
-          v-model.lazy="input.firstname"
+          v-model.lazy="state.input.firstname"
         />
       </div>
       <div class="mb-2">
@@ -25,7 +25,7 @@
           type="text"
           id="sign-up-lastname"
           placeholder="Dela Cruz"
-          v-model.lazy="input.lastname"
+          v-model.lazy="state.input.lastname"
         />
       </div>
       <div class="mb-2">
@@ -37,7 +37,7 @@
           type="text"
           id="sign-up-email"
           placeholder="juan_delacruz@sample.com"
-          v-model.lazy="input.email"
+          v-model.lazy="state.input.email"
         />
       </div>
       <div class="mb-2">
@@ -49,7 +49,7 @@
           type="password"
           id="sign-up-password"
           placeholder="********"
-          v-model.lazy="input.password"
+          v-model.lazy="state.input.password"
         />
       </div>
       <div class="flex">
@@ -68,29 +68,30 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { reactive } from "vue";
+import { useStore } from "vuex";
+
 export default {
-  data() {
-    return {
+  async setup() {
+    const store = useStore();
+    const state = reactive({
       input: {
         firstname: "",
         lastname: "",
         email: "",
         password: "",
       },
-    };
-  },
-  methods: {
-    ...mapActions("user", ["setUser", "editAccount"]),
-  },
-  computed: {
-    ...mapState("user", ["user"]),
-  },
-  async mounted() {
-    await this.setUser();
-    Object.keys(this.input).forEach((key) => {
-      this.input[key] = this.user[key] || "";
     });
+    await store.dispatch("user/setUser");
+
+    Object.keys(state.input).forEach((key) => {
+      state.input[key] = store.state.user.user[key] || "";
+    });
+
+    return {
+      state,
+      onEditAccount: () => store.dispatch("user/editAccount", state.input),
+    };
   },
 };
 </script>

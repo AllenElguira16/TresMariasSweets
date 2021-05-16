@@ -16,7 +16,15 @@ import axios from 'axios';
   actions: {
     async setCakes(state) {
       let response = await axios.get("/api/cakes");
-      state.commit('setCakes', response.data);
+      if (response.data.success) {
+        state.commit('setCakes', response.data.cakes);
+      }
+    },
+    async addCake(state, payload) {
+      const response = await axios.post('/api/cakes', payload);
+      if (response.data.success) {
+        state.dispatch('setCakes');
+      }
     }
   }
 }

@@ -8,22 +8,22 @@
         <div class="flex pt-2 text-gray-500">
           <button
             class="flex-1 border-b-2 py-2"
-            :class="{ 'border-primary': accountState === 'sign-in' }"
+            :class="{ 'border-primary': state.accountState === 'sign-in' }"
             @click="changeAccountState('sign-in')"
           >
             SIGN IN
           </button>
           <button
             class="flex-1 border-b-2 py-2"
-            :class="{ 'border-primary': accountState === 'sign-up' }"
+            :class="{ 'border-primary': state.accountState === 'sign-up' }"
             @click="changeAccountState('sign-up')"
           >
             SIGN UP
           </button>
         </div>
         <div>
-          <signin-component v-if="accountState === 'sign-in'" />
-          <signup-component v-else-if="accountState === 'sign-up'" />
+          <signin-component v-if="state.accountState === 'sign-in'" />
+          <signup-component v-else-if="state.accountState === 'sign-up'" />
         </div>
       </div>
     </section>
@@ -31,23 +31,27 @@
 </template>
 
 <script>
+import { reactive, ref } from "vue";
+
 import SignupComponent from "./_components/signup";
 import SigninComponent from "./_components/signin";
 
 export default {
-  data() {
-    return {
-      accountState: "sign-in",
-    };
-  },
-  methods: {
-    changeAccountState(newState) {
-      this.accountState = newState;
-    },
-  },
   components: {
     SignupComponent,
     SigninComponent,
+  },
+  setup() {
+    const state = reactive({
+      accountState: "sign-in",
+    });
+
+    return {
+      state,
+      changeAccountState(newState) {
+        state.accountState = newState;
+      },
+    };
   },
 };
 </script>

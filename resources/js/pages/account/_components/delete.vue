@@ -26,13 +26,22 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { useStore } from "vuex";
 export default {
-  methods: {
-    ...mapActions("user", ["setUser", "deleteAccount"]),
-  },
-  async mounted() {
-    await this.setUser();
+  // methods: {
+  //   ...mapActions("user", ["setUser", "deleteAccount"]),
+  // },
+  // async mounted() {
+  //   await this.setUser();
+  // },
+  async setup() {
+    const store = useStore();
+
+    await store.dispatch("user/setUser");
+
+    return {
+      deleteAccount: () => store.dispatch("user/deleteAccount"),
+    };
   },
 };
 </script>

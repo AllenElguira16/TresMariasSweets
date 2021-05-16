@@ -10,7 +10,8 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { computed } from "vue";
+import { useStore } from "vuex";
 
 import CakeComponent from "../../_components/cake";
 import HeaderComponent from "./_components/header";
@@ -20,15 +21,14 @@ export default {
     CakeComponent,
     HeaderComponent,
   },
-  async mounted() {
-    await this.setCakes();
-    console.log(this.cakes);
-  },
-  methods: {
-    ...mapActions("cake", ["setCakes"]),
-  },
-  computed: {
-    ...mapState("cake", ["cakes"]),
+  async setup() {
+    const store = useStore();
+
+    await store.dispatch("cake/setCakes");
+
+    return {
+      cakes: computed(() => store.state.cake.cakes),
+    };
   },
 };
 </script>
