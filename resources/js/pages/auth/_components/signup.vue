@@ -13,7 +13,7 @@
           type="text"
           id="sign-up-firstname"
           placeholder="Juan"
-          v-model.lazy="input.firstname"
+          v-model.lazy="state.input.firstname"
         />
       </div>
       <div class="mb-2">
@@ -25,7 +25,7 @@
           type="text"
           id="sign-up-lastname"
           placeholder="Dela Cruz"
-          v-model.lazy="input.lastname"
+          v-model.lazy="state.input.lastname"
         />
       </div>
       <div class="mb-2">
@@ -37,7 +37,7 @@
           type="text"
           id="sign-up-email"
           placeholder="juan_delacruz@sample.com"
-          v-model.lazy="input.email"
+          v-model.lazy="state.input.email"
         />
       </div>
       <div class="mb-2">
@@ -49,7 +49,7 @@
           type="password"
           id="sign-up-password"
           placeholder="********"
-          v-model.lazy="input.password"
+          v-model.lazy="state.input.password"
         />
       </div>
       <div class="flex">
@@ -68,20 +68,24 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { reactive } from "vue";
+import { useStore } from "vuex";
 export default {
-  data() {
-    return {
+  setup() {
+    const store = useStore();
+    const state = reactive({
       input: {
         firstname: "",
         lastname: "",
         email: "",
         password: "",
       },
+    });
+
+    return {
+      state,
+      signup: () => store.dispatch("user/signup", state.input),
     };
-  },
-  methods: {
-    ...mapActions("user", ["signup"]),
   },
 };
 </script>

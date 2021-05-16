@@ -38,6 +38,7 @@ const user = {
     async signout({ commit }) {
       const { data } = await axios.post('/api/user/auth/sign-out');
       if (data.success) {
+        window.location.href = '/'
         commit('setUser', null);
       }
     },

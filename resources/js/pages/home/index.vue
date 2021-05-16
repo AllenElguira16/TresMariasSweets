@@ -17,28 +17,28 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { computed } from "vue";
+import { useStore } from "vuex";
 
 import NavbarComponent from "./_components/navbar";
 import HeaderComponent from "./_components/header";
 import CakeComponent from "../_components/cake";
 
 export default {
-  async mounted() {
-    await this.setCakes();
-    await this.setUser();
-  },
   components: {
     NavbarComponent,
     HeaderComponent,
     CakeComponent,
   },
-  methods: {
-    ...mapActions("user", ["setUser"]),
-    ...mapActions("cake", ["setCakes"]),
-  },
-  computed: {
-    ...mapState("cake", ["cakes"]),
+  async setup() {
+    const store = useStore();
+
+    await store.dispatch("user/setUser");
+    await store.dispatch("cake/setCakes");
+
+    return {
+      cakes: computed(() => store.state.cake.cakes),
+    };
   },
 };
 </script>

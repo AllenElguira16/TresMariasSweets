@@ -1,13 +1,11 @@
-import Vue from 'vue'
-import Vuex from 'vuex';
+import { createStore } from 'vuex';
 import cake from './cake';
+import admin from './admin';
 import user from './user';
 
-Vue.use(Vuex);
-
-const store = new Vuex.Store({
+const store = new createStore({
   modules: {
-    user, cake
+    user, cake, admin
   }
 });
 

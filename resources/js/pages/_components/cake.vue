@@ -15,11 +15,7 @@
       </div>
     </header>
     <div class="overflow-hidden h-full">
-      <img
-        :src="`/images/cakes/${cake.filename}`"
-        :alt="cake.title"
-        class="h-full w-full"
-      />
+      <img :src="cake.picture" :alt="cake.title" class="h-full w-full" />
     </div>
   </div>
 </template>

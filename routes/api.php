@@ -21,7 +21,10 @@ use App\Http\Controllers\UserController;
 //     return $request->user();
 // });
 
-Route::get('/cakes', [CakeController::class, 'cakeList']);
+Route::prefix('/cakes')->group(function () {
+    Route::get('/', [CakeController::class, 'cakeList']);
+    Route::post('/', [CakeController::class, 'addCake']);
+});
 
 
 Route::prefix('/user')->group(function () {
