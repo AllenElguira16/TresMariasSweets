@@ -15,7 +15,10 @@
           <cart-component
             v-for="(cart, index) in carts"
             :key="index"
-            :cart="cart"
+            :cart="{
+              id: index,
+              ...cart,
+            }"
           />
         </div>
       </div>
