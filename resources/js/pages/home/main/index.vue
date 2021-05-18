@@ -10,24 +10,14 @@
         <header class="bg-primary rounded-t-2xl p-4 text-white">
           Cart List
         </header>
-        <ul class="bg-white rounded-b-2xl p-4">
-          <li class="">
-            <div class="flex">
-              <div class="flex-1">Cake 1</div>
-              <div>299</div>
-            </div>
-            <div class="flex justify-between">
-              <small class="text-gray-400">
-                <span>Title: Happy Birthday! John Doe</span>
-              </small>
-              <div>
-                <button class="material-icons text-primary">remove</button>
-                <div class="inline-block align-top mx-2">1</div>
-                <button class="material-icons text-primary">add</button>
-              </div>
-            </div>
-          </li>
-        </ul>
+        <div class="bg-white rounded-b-2xl p-4">
+          <div v-if="!cart">Seems like cart is empty</div>
+          <cart-component
+            v-for="(cart, index) in carts"
+            :key="index"
+            :cart="cart"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -38,10 +28,12 @@ import { computed } from "vue";
 import { useStore } from "vuex";
 
 import CakeComponent from "../../_components/cake";
+import CartComponent from "../_components/cart";
 
 export default {
   components: {
     CakeComponent,
+    CartComponent,
   },
   async setup() {
     const store = useStore();
@@ -50,6 +42,7 @@ export default {
 
     return {
       cakes: computed(() => store.state.cake.cakes),
+      carts: computed(() => store.state.cart.carts),
     };
   },
 };

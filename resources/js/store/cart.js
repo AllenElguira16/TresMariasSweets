@@ -10,12 +10,12 @@ import axios from 'axios';
   },
   mutations: {
     addToCart(state, payload) {
-      state.cart.push(payload);
+      state.carts.push(payload);
     }
   },
   actions: {
-    async addToCart(state, { id }) {
-      state.commit('addToCart', id);
+    async addToCart(state, payload) {
+      state.commit('addToCart', payload);
     },
   }
 }
