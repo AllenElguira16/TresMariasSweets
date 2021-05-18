@@ -20,16 +20,53 @@
         </small>
       </div>
       <div>
-        <button class="material-icons text-primary">remove</button>
+        <button
+          class="material-icons text-primary"
+          v-if="cart.quantity !== 1"
+          @click="() => updateQuantity(cart.quantity - 1)"
+        >
+          remove
+        </button>
+        <button
+          v-else
+          class="material-icons-outlined text-primary"
+          @click="deleteCart"
+        >
+          delete
+        </button>
         <div class="inline-block align-top mx-2">{{ cart.quantity }}</div>
-        <button class="material-icons text-primary">add</button>
+        <button
+          class="material-icons text-primary"
+          @click="() => updateQuantity(cart.quantity + 1)"
+        >
+          add
+        </button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { useStore } from "vuex";
+
 export default {
   props: ["cart"],
+  async setup(props) {
+    const store = useStore();
+
+    return {
+      async deleteCart() {
+        await store.dispatch("cart/deleteCart", {
+          id: props.cart.id,
+        });
+      },
+      async updateQuantity(newQuantity) {
+        await store.dispatch("cart/updateQuantity", {
+          id: props.cart.id,
+          newQuantity,
+        });
+      },
+    };
+  },
 };
 </script>
