@@ -30,9 +30,9 @@
         <span class="material-icons">power_settings_new</span>
         <span>SIGN OUT</span>
       </button>
-      <button class="bg-primary flex px-4 py-2 text-white ml-2">
+      <router-link to="/cart" class="bg-primary flex px-4 py-2 text-white ml-2">
         <span class="material-icons-outlined">shopping_cart</span>
-      </button>
+      </router-link>
     </div>
     <div v-else class="flex items-center">
       <router-link

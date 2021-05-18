@@ -1,5 +1,8 @@
 import * as VueRouter from 'vue-router';
+
 import Home from './home';
+import Main from './home/main';
+
 import Auth from './auth'
 import Account from './account';
 
@@ -12,7 +15,13 @@ import AdminCakeList from './admin/cake-list';
 const routes = [
   {
     path: '/',
-    component: Home
+    component: Home,
+    children: [
+      {
+        path: '/',
+        component: Main
+      }
+    ]
   },
   {
     path: '/auth',
@@ -33,12 +42,6 @@ const routes = [
     ]
   }
 ]
-
-
-// export default new VueRouter({ 
-//   routes,
-//   mode: 'history'
-// });
 
 export default VueRouter.createRouter({
   history: VueRouter.createWebHistory(),

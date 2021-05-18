@@ -38,6 +38,17 @@
         </div>
       </div>
     </div>
+    <div class="absolute p-4" style="left: 0; right: 0; bottom: 0">
+      <div class="grid gap-4 justify-around">
+        <div
+          class="border bg-yellow-400 text-white py-1 px-2 flex align-items-center w-32"
+          @click="addToCart"
+        >
+          <span>Add to Cart</span>
+          <span class="material-icons-outlined"> add_shopping_cart </span>
+        </div>
+      </div>
+    </div>
     <div class="overflow-hidden h-full">
       <img :src="cake.picture" :alt="cake.title" class="h-full w-full" />
     </div>
@@ -207,6 +218,10 @@ export default {
 
       onDeleteOpenModal: () => (state.isDeleteActive = true),
       onDeleteCloseModal: () => (state.isDeleteActive = false),
+
+      addToCart: () => {
+        console.log("add-to-cart");
+      },
     };
   },
 };
