@@ -1,10 +1,7 @@
 <template>
-  <main
-    v-if="loginStatus === 'logged-in'"
-    class="auto-cols-auto gap-0 grid grid-flow-col"
-  >
-    <navbar-component></navbar-component>
-    <router-view></router-view>
+  <main v-if="loginStatus === 'logged-in'" class="grid grid-cols-12">
+    <navbar-component class="col-span-1"></navbar-component>
+    <router-view class="col-span-11"></router-view>
   </main>
 
   <main v-else-if="loginStatus === 'logged-out'" class="flex h-screen">
