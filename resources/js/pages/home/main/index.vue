@@ -20,6 +20,13 @@
               ...cart,
             }"
           />
+          <div
+            v-if="carts.length !== 0"
+            class="border w-100 bg-primary text-white text-center cursor-pointer py-2 rounded"
+            @click="requestOrder"
+          >
+            Request Order
+          </div>
         </div>
       </div>
     </div>
@@ -46,6 +53,9 @@ export default {
     return {
       cakes: computed(() => store.state.cake.cakes),
       carts: computed(() => store.state.cart.carts),
+      async requestOrder() {
+        await store.dispatch("cart/requestOrder");
+      },
     };
   },
 };
