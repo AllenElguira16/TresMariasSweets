@@ -9,7 +9,7 @@
         <small class="block text-gray-400">
           <span>
             {{
-              cart.instruction.length ? cart.instruction : "~No instruction~"
+              cart.instructions.length ? cart.instructions : "~No instruction~"
             }}
           </span>
         </small>

@@ -29647,9 +29647,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 case 0:
                   _context3.next = 2;
                   return store.dispatch("cart/addToCart", {
+                    cake_id: props.cake.id,
                     title: props.cake.title,
                     init_price: props.cake.init_price,
-                    instruction: state.cart.instruction,
+                    instructions: state.cart.instruction,
                     picture: state.cart.picture,
                     quantity: state.cart.quantity
                   });
@@ -30371,32 +30372,49 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     CartComponent: _components_cart__WEBPACK_IMPORTED_MODULE_3__.default
   },
   setup: function setup() {
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
       var store;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
         while (1) {
-          switch (_context.prev = _context.next) {
+          switch (_context2.prev = _context2.next) {
             case 0:
               store = (0,vuex__WEBPACK_IMPORTED_MODULE_4__.useStore)();
-              _context.next = 3;
+              _context2.next = 3;
               return store.dispatch("cake/setCakes");
 
             case 3:
-              return _context.abrupt("return", {
+              return _context2.abrupt("return", {
                 cakes: (0,vue__WEBPACK_IMPORTED_MODULE_1__.computed)(function () {
                   return store.state.cake.cakes;
                 }),
                 carts: (0,vue__WEBPACK_IMPORTED_MODULE_1__.computed)(function () {
                   return store.state.cart.carts;
-                })
+                }),
+                requestOrder: function requestOrder() {
+                  return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+                      while (1) {
+                        switch (_context.prev = _context.next) {
+                          case 0:
+                            _context.next = 2;
+                            return store.dispatch("cart/requestOrder");
+
+                          case 2:
+                          case "end":
+                            return _context.stop();
+                        }
+                      }
+                    }, _callee);
+                  }))();
+                }
               });
 
             case 4:
             case "end":
-              return _context.stop();
+              return _context2.stop();
           }
         }
-      }, _callee);
+      }, _callee2);
     }))();
   }
 });
@@ -32017,7 +32035,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* TEXT */
   ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.cart.init_price), 1
   /* TEXT */
-  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("small", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.cart.instruction.length ? $props.cart.instruction : "~No instruction~"), 1
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("small", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.cart.instructions.length ? $props.cart.instructions : "~No instruction~"), 1
   /* TEXT */
   )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("small", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.cart.picture ? "~Picture Included~" : "~No Picture~"), 1
   /* TEXT */
@@ -32380,7 +32398,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     , ["cart"]);
   }), 128
   /* KEYED_FRAGMENT */
-  ))])])])]);
+  )), $setup.carts.length !== 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", {
+    key: 1,
+    "class": "border w-100 bg-primary text-white text-center cursor-pointer py-2 rounded",
+    onClick: _cache[1] || (_cache[1] = function () {
+      return $setup.requestOrder && $setup.requestOrder.apply($setup, arguments);
+    })
+  }, " Request Order ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])]);
 }
 
 /***/ }),
@@ -32759,6 +32783,36 @@ var cart = {
             }
           }
         }, _callee3);
+      }))();
+    },
+    requestOrder: function requestOrder(_ref5) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+        var state, carts;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                state = _ref5.state;
+                carts = state.carts.map(function (cart) {
+                  return {
+                    cake_id: cart.cake_id,
+                    instructions: cart.instructions,
+                    picture: cart.picture,
+                    quantity: cart.quantity,
+                    status: 'requested'
+                  };
+                });
+                _context4.next = 4;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().post('/api/orders', {
+                  order: carts
+                });
+
+              case 4:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
       }))();
     }
   }

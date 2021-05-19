@@ -185,6 +185,13 @@ class UserController extends Controller
         $user = $request->session()->get('user');
         $user = User::find($user->id);
         
+        if (!$user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'User not found',
+            ]);
+        }
+
         return [
             'success' => true,
             'user' => [
