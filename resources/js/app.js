@@ -1,16 +1,22 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router';
-import Vuex from 'vuex';
-
-Vue.use(VueRouter);
+import { createApp } from 'vue';
 
 import router from './pages/router';
-import './bootstrap';
-import './index';
 import store from './store';
 
-new Vue({
-  router,
-  template: '<router-view/>',
-  store
-}).$mount('#app')
+const app = createApp({
+  template: `
+    <Suspense>
+      <template #default>
+        <router-view/>
+      </template>
+      <template #fallback>
+        <span>Loading... pls wait</span>
+      </template>
+    </Suspense>
+  `,
+});
+
+app.use(store);
+app.use(router);
+
+app.mount('#app');

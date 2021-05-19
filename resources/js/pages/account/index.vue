@@ -8,22 +8,22 @@
         <div class="flex pt-2 text-gray-500">
           <button
             class="flex-1 border-b-2 py-2"
-            :class="{ 'border-primary': accountState === 'edit' }"
+            :class="{ 'border-primary': state.accountState === 'edit' }"
             @click="changeAccountState('edit')"
           >
             EDIT
           </button>
           <button
             class="flex-1 border-b-2 py-2"
-            :class="{ 'border-primary': accountState === 'delete' }"
+            :class="{ 'border-primary': state.accountState === 'delete' }"
             @click="changeAccountState('delete')"
           >
             DELETE
           </button>
         </div>
         <div>
-          <edit-component v-if="accountState === 'edit'" />
-          <delete-component v-else-if="accountState === 'delete'" />
+          <edit-component v-if="state.accountState === 'edit'" />
+          <delete-component v-else-if="state.accountState === 'delete'" />
         </div>
       </div>
     </section>
@@ -31,19 +31,22 @@
 </template>
 
 <script>
-import EditComponent from "./components/edit";
-import DeleteComponent from "./components/delete";
+import { reactive } from "vue";
+import EditComponent from "./_components/edit";
+import DeleteComponent from "./_components/delete";
 
 export default {
-  data() {
-    return {
+  setup() {
+    const state = reactive({
       accountState: "edit",
+    });
+
+    return {
+      state,
+      changeAccountState(newState) {
+        state.accountState = newState;
+      },
     };
-  },
-  methods: {
-    changeAccountState(newState) {
-      this.accountState = newState;
-    },
   },
   components: {
     EditComponent,

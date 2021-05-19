@@ -2,29 +2,101 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cake;
 use Illuminate\Http\Request;
 
 class CakeController extends Controller
 {
     public function cakeList() {
-        $cakes = [];
+        return [
+            'success' => true,
+            'cakes' => Cake::all()
+        ];
+    }
 
-        for ($i = 0; $i < 10; $i++) {
-            array_push($cakes, [
-                'title' => 'Cake '.($i + 1),
-                'filename' => ($i + 1).'.jpeg',
-                'init_price' => 300
-            ]);
+    public function addCake(Request $request) {
+
+        if ($request->title === null || count_chars($request->title) < 2) {
+            return [
+                'success' => false,
+                'message' => 'Title should be greater than 2'
+            ];    
         }
 
-        for ($i = 0; $i < 10; $i++) {
-            array_push($cakes, [
-                'title' => 'Cake '.($i + 1),
-                'filename' => ($i + 1).'.jpeg',
-                'init_price' => 300
-            ]);
+        if ($request->init_price === null || $request->init_price <= 0) {
+            return [
+                'success' => false,
+                'message' => 'Initial Price should be greater than 0'
+            ];    
         }
 
-        return response()->json($cakes);
+        if ($request->picture === null) {
+            return [
+                'success' => false,
+                'message' => 'Picture is required'
+            ];    
+        }
+
+        Cake::insert([
+            'title' => $request->title,
+            'init_price' => $request->init_price,
+            'picture' => $request->picture
+        ]);
+        
+        return [
+            'success' => true,
+            'message' => 'Putang Ina Niyong Lahat',
+            'data' => [
+                'title' => $request->title,
+                'init_price' => $request->init_price,
+                'picture' => $request->picture,
+            ]
+        ];
+    }
+
+    public function editCake(Request $request) {
+        if ($request->title === null || count_chars($request->title) < 2) {
+            return [
+                'success' => false,
+                'message' => 'Title should be greater than 2'
+            ];    
+        }
+
+        if ($request->init_price === null || $request->init_price <= 0) {
+            return [
+                'success' => false,
+                'message' => 'Initial Price should be greater than 0'
+            ];    
+        }
+
+        if ($request->picture === null) {
+            return [
+                'success' => false,
+                'message' => 'Picture is required',
+            ];    
+        }
+
+        Cake::find($request->id)->update([
+            'title' => $request->title,
+            'init_price' => $request->init_price,
+            'picture' => $request->picture
+        ]);
+        
+        return [
+            'success' => true,
+            'message' => 'Putang Ina Niyong Lahat'
+        ];
+    }
+
+    public function deleteCake(Request $request) {
+
+        $cake = Cake::find($request->id);
+
+        $cake->delete();
+
+        return [
+            'success' => true,
+            'message' => 'Cake deleted'
+        ];
     }
 }

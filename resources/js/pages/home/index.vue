@@ -1,44 +1,28 @@
 <template>
-  <main class="auto-cols-auto gap-0 grid grid-flow-col">
-    <navbar-component></navbar-component>
-    <div class="w-full p-4">
+  <main class="grid grid-cols-12">
+    <navbar-component class="col-span-1"></navbar-component>
+    <div class="col-span-11 w-full p-4">
       <header-component></header-component>
-      <div class="py-4">
-        <div class="gap-4 grid grid-cols-5">
-          <cake-component
-            v-for="(cake, key) in cakes"
-            :key="key"
-            :cake="cake"
-          />
-        </div>
-      </div>
+      <router-view></router-view>
     </div>
   </main>
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { useStore } from "vuex";
 
-import NavbarComponent from "./components/navbar";
-import HeaderComponent from "./components/header";
-import CakeComponent from "./components/cake";
+import NavbarComponent from "./_components/navbar";
+import HeaderComponent from "./_components/header";
 
 export default {
-  async mounted() {
-    await this.setCakes();
-    await this.setUser();
-  },
   components: {
     NavbarComponent,
     HeaderComponent,
-    CakeComponent,
   },
-  methods: {
-    ...mapActions("user", ["setUser"]),
-    ...mapActions("cake", ["setCakes"]),
-  },
-  computed: {
-    ...mapState("cake", ["cakes"]),
+  async setup() {
+    const store = useStore();
+
+    await store.dispatch("user/setUser");
   },
 };
 </script>
