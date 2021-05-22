@@ -26,7 +26,7 @@
         You have no {{ currentStatus }} orders.
       </div>
       <div
-        v-for="order in orders.requested"
+        v-for="order in orders[currentStatus]"
         :key="order.id"
         class="mb-4"
         v-else
@@ -53,8 +53,19 @@
                 </span>
               </small>
             </div>
-            <div>
-              <button class="bg-primary flex px-4 py-2 text-white">
+            <div class="flex">
+              <button
+                class="bg-primary flex px-4 py-2 text-white"
+                @click="changeOrderStatus(order.id, 'done')"
+                v-if="currentStatus === 'placed'"
+              >
+                Done
+              </button>
+              <button
+                class="bg-primary flex px-4 py-2 text-white"
+                @click="changeOrderStatus(order.id, 'accepted')"
+                v-if="currentStatus === 'requested'"
+              >
                 Accept
               </button>
             </div>
@@ -75,16 +86,28 @@ export default {
     const status = ["requested", "accepted", "placed", "cancelled", "done"];
     const currentStatus = ref("requested");
 
-    status.forEach(async function (status) {
-      await store.dispatch("order/getOrders", {
-        status,
+    const getAllOrders = () => {
+      status.forEach(async function (status) {
+        await store.dispatch("order/getOrders", {
+          status,
+        });
       });
-    });
+    };
+
+    getAllOrders();
 
     return {
       _status: status,
       currentStatus,
       orders: computed(() => store.state.order.orders),
+      async changeOrderStatus(id, status) {
+        await store.dispatch("order/changeOrderStatus", {
+          id,
+          status,
+        });
+
+        getAllOrders();
+      },
     };
   },
 };

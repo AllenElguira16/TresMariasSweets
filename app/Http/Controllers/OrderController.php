@@ -57,8 +57,21 @@ class OrderController extends Controller
         Order::insert($orders);
 
         return [
-            'success' => false,
+            'success' => true,
             'message' => 'Order Success'
+        ];
+    }
+
+    public function changeOrderStatus(Request $request) {
+        $order = Order::where('id', $request->id)
+            ->update([
+                'status' => $request->status
+            ]
+        );
+
+        return [
+            'success' => true,
+            'message' => 'Order Success',
         ];
     }
 }

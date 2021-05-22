@@ -29,6 +29,11 @@ const order = {
         orders
       });
     },
+    async changeOrderStatus({}, { id, status }) {
+      await axios.put(`/api/orders/${id}`, {
+        status
+      });
+    },
     async requestOrder({state}, { carts }) {
       await axios.post('/api/orders', { order: carts });
     }
