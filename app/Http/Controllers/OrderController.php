@@ -3,15 +3,37 @@
 namespace App\Http\Controllers;
 
 use Closure;
+use App\Models\Cake;
 use App\Models\Order;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
     public function orderList(Request $request) {
+        $status = $request->query('status');
+        $user = $request->session()->get('user');
+
+        $where = [
+            ['status', '=', $status],
+        ];
+
+        if ($request->exists('is_mine')) {
+            array_push($where, ['user_id', '=', $user->id]);
+        }
+
+        $orders = Order::where($where)->get();
+
         return [
             'success' => true,
-            'order' => Order::where('status', $request->query('status'))->get()
+            'orders' => $orders->map(function ($order) use ($user) {
+                return [
+                    'id' => $order->id,
+                    'cake' => Cake::find($order->cake_id),
+                    'user' => $user,
+                    'instructions' => $order->instructions,
+                    'picture' => $order->picture
+                ];
+            })
         ];
     }
 

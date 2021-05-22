@@ -54,7 +54,17 @@ export default {
       cakes: computed(() => store.state.cake.cakes),
       carts: computed(() => store.state.cart.carts),
       async requestOrder() {
-        await store.dispatch("cart/requestOrder");
+        const carts = store.state.cart.carts.map(cart => ({
+          cake_id: cart.cake_id,
+          instructions: cart.instructions,
+          picture: cart.picture,
+          quantity: cart.quantity,
+          status: 'requested'  
+        }));
+
+        await store.dispatch("order/requestOrder", {
+          carts
+        });
       },
     };
   },

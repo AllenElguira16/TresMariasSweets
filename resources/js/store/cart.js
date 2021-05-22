@@ -29,19 +29,6 @@ const cart = {
     async updateQuantity(state, { id, newQuantity }) {
       state.commit('updateQuantity', { id, newQuantity });
     },
-    async requestOrder({state}) {
-      const carts = state.carts.map(cart => {
-        return {
-          cake_id: cart.cake_id,
-          instructions: cart.instructions,
-          picture: cart.picture,
-          quantity: cart.quantity,
-          status: 'requested'  
-        };
-      });
-
-      await axios.post('/api/orders', { order: carts });
-    }
   }
 }
 

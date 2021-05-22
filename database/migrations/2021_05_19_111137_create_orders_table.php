@@ -20,7 +20,7 @@ class CreateOrdersTable extends Migration
             $table->string('instructions');
             $table->string('picture');
             $table->integer('quantity');
-            $table->enum('status', ['requested', 'accepted', 'placed']);
+            $table->enum('status', ['requested', 'accepted', 'placed', 'cancelled', 'done']);
             $table->timestamps();
         });
     }
