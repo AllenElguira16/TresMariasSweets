@@ -26,12 +26,15 @@
         You have no {{ currentStatus }} orders.
       </div>
       <div
-        v-for="order in orders.requested"
+        v-for="order in orders[currentStatus]"
         :key="order.id"
         class="mb-4"
         v-else
       >
         <div>
+          <h3 class="font-bold" v-if="currentStatus === 'placed'">
+            Order ID: {{ hashID(order.id) }}
+          </h3>
           <div class="flex">
             <div class="flex-1 font-bold">{{ order.cake.title }}</div>
             <div>{{ order.cake.init_price }}</div>
@@ -53,9 +56,32 @@
                 </span>
               </small>
             </div>
-            <div>
-              <button class="bg-red-500 flex px-4 py-2 text-white">
+            <div class="flex">
+              <button
+                class="bg-primary flex px-4 py-2 text-white mr-2"
+                @click="changeOrderStatus(order.id, 'placed')"
+                v-if="currentStatus in ['accepted']"
+              >
+                Place Order
+              </button>
+              <button
+                class="bg-red-500 flex px-4 py-2 text-white"
+                @click="changeOrderStatus(order.id, 'cancelled')"
+                v-if="['requested', 'accepted'].includes(currentStatus)"
+              >
                 Cancel
+              </button>
+              <button
+                class="bg-red-500 flex px-4 py-2 text-white opacity-40"
+                v-if="['cancelled'].includes(currentStatus)"
+              >
+                Cancelled
+              </button>
+              <button
+                class="bg-primary flex px-4 py-2 text-white opacity-40"
+                v-if="['done'].includes(currentStatus)"
+              >
+                Done
               </button>
             </div>
           </div>
@@ -68,23 +94,37 @@
 <script>
 import { computed, ref } from "@vue/runtime-core";
 import { useStore } from "vuex";
+import md5 from "md5";
 
 export default {
   async setup() {
     const store = useStore();
-    const status = ["requested", "done", "cancelled"];
+    const status = ["requested", "accepted", "placed", "cancelled", "done"];
     const currentStatus = ref("requested");
 
-    status.forEach(async function (status) {
-      await store.dispatch("order/getOrders", {
-        status,
+    const getAllOrders = () => {
+      status.forEach(async function (status) {
+        await store.dispatch("order/getOrders", {
+          status,
+        });
       });
-    });
+    };
+
+    getAllOrders();
 
     return {
       _status: status,
       currentStatus,
       orders: computed(() => store.state.order.orders),
+      async changeOrderStatus(id, status) {
+        await store.dispatch("order/changeOrderStatus", {
+          id,
+          status,
+        });
+
+        getAllOrders();
+      },
+      hashID: (id) => md5(id),
     };
   },
 };

@@ -45,4 +45,5 @@ Route::prefix('/user')->group(function () {
 Route::prefix('/orders')->group(function () {
     Route::get('/', [OrderController::class, 'orderList']);
     Route::post('/', [OrderController::class, 'makeOrder']);
+    Route::put('/{id}', [OrderController::class, 'changeOrderStatus']);
 });
