@@ -15,6 +15,9 @@ const cart = {
     deleteCart(state, {id}) {
       state.carts.splice(id, 1);
     },
+    deleteAllCart(state) {
+      state.carts = []
+    },
     updateQuantity(state, { id, newQuantity }) {
       state.carts[id].quantity = newQuantity;
     }
@@ -26,9 +29,12 @@ const cart = {
     async deleteCart(state, { id }) {
       state.commit('deleteCart', { id });
     },
+    async deleteAllCart(state) {
+      state.commit('deleteAllCart');
+    },
     async updateQuantity(state, { id, newQuantity }) {
       state.commit('updateQuantity', { id, newQuantity });
-    }
+    },
   }
 }
 

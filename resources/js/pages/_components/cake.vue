@@ -337,9 +337,10 @@ export default {
       },
       addToCart: async () => {
         await store.dispatch("cart/addToCart", {
+          cake_id: props.cake.id,
           title: props.cake.title,
           init_price: props.cake.init_price,
-          instruction: state.cart.instruction,
+          instructions: state.cart.instruction,
           picture: state.cart.picture,
           quantity: state.cart.quantity,
         });

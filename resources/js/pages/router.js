@@ -2,11 +2,13 @@ import * as VueRouter from 'vue-router';
 
 import Home from './home';
 import Main from './home/main';
+import HomeOrder from './home/order';
 
 import Auth from './auth'
 import Account from './account';
 
 import Admin from './admin';
+import AdminOrder from './admin/order';
 import AdminCakeList from './admin/cake-list';
 
 /**
@@ -20,6 +22,10 @@ const routes = [
       {
         path: '/',
         component: Main
+      },
+      {
+        path: '/orders',
+        component: HomeOrder
       }
     ]
   },
@@ -36,8 +42,12 @@ const routes = [
     component: Admin,
     children: [
       {
-        path: '/admin/cakes',
+        path: '/admin',
         component: AdminCakeList
+      },
+      {
+        path: '/admin/orders',
+        component: AdminOrder
       }
     ]
   }

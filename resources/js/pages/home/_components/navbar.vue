@@ -20,11 +20,11 @@
         <li
           class="cursor-pointer hover:bg-primary hover:text-white rounded select-none text-center p-2"
         >
-          <router-link to="/favorite">
+          <router-link to="/orders">
             <div>
-              <span class="material-icons-outlined">favorite_border</span>
+              <span class="material-icons-outlined">star_border</span>
             </div>
-            <div>Favorites</div>
+            <div>Orders</div>
           </router-link>
         </li>
         <li

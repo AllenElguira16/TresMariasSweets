@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\CakeController; 
 use App\Http\Controllers\UserController; 
+use App\Http\Controllers\OrderController; 
 
 /*
 |--------------------------------------------------------------------------
@@ -39,5 +40,10 @@ Route::prefix('/user')->group(function () {
     Route::put('/auth/{id}', [UserController::class, 'EditAccount']);
     
     Route::delete('/auth/{id}', [UserController::class, 'DeleteUser']);
+});
 
+Route::prefix('/orders')->group(function () {
+    Route::get('/', [OrderController::class, 'orderList']);
+    Route::post('/', [OrderController::class, 'makeOrder']);
+    Route::put('/{id}', [OrderController::class, 'changeOrderStatus']);
 });

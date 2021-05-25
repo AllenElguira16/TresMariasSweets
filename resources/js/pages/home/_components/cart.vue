@@ -2,14 +2,14 @@
   <div>
     <div class="flex">
       <div class="flex-1">{{ cart.title }}</div>
-      <div>{{ cart.init_price }}</div>
+      <div>{{ cart.init_price * cart.quantity }}</div>
     </div>
     <div class="flex justify-between">
       <div>
         <small class="block text-gray-400">
           <span>
             {{
-              cart.instruction.length ? cart.instruction : "~No instruction~"
+              cart.instructions.length ? cart.instructions : "~No instruction~"
             }}
           </span>
         </small>
