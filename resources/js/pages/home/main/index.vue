@@ -11,7 +11,7 @@
           Cart List
         </header>
         <div class="bg-white rounded-b-2xl p-4">
-          <div v-if="!cart">Seems like cart is empty</div>
+          <div v-if="!carts.length">Seems like cart is empty</div>
           <cart-component
             v-for="(cart, index) in carts"
             :key="index"
@@ -54,17 +54,18 @@ export default {
       cakes: computed(() => store.state.cake.cakes),
       carts: computed(() => store.state.cart.carts),
       async requestOrder() {
-        const carts = store.state.cart.carts.map(cart => ({
+        const carts = store.state.cart.carts.map((cart) => ({
           cake_id: cart.cake_id,
           instructions: cart.instructions,
           picture: cart.picture,
           quantity: cart.quantity,
-          status: 'requested'  
+          status: "requested",
         }));
 
         await store.dispatch("order/requestOrder", {
-          carts
+          carts,
         });
+        await store.dispatch("cart/deleteAllCart");
       },
     };
   },

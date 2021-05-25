@@ -17,8 +17,8 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->integer('user_id');
             $table->integer('cake_id');
-            $table->string('instructions');
-            $table->string('picture');
+            $table->string('instructions')->nullable();
+            $table->string('picture')->nullable();
             $table->integer('quantity');
             $table->enum('status', ['requested', 'accepted', 'placed', 'cancelled', 'done']);
             $table->timestamps();

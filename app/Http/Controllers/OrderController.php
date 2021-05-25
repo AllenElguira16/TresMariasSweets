@@ -31,6 +31,7 @@ class OrderController extends Controller
                     'cake' => Cake::find($order->cake_id),
                     'user' => $user,
                     'instructions' => $order->instructions,
+                    'quantity' => $order->quantity,
                     'picture' => $order->picture
                 ];
             })

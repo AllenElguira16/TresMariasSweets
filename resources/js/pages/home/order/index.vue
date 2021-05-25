@@ -11,7 +11,11 @@
         </div>
 
         <div>
-          <select class="px-3 py-2" v-model.lazy="currentStatus">
+          <select
+            class="px-3 py-2"
+            v-model="currentStatus"
+            @change="changeOrderTab"
+          >
             <option
               v-for="(status, index) in _status"
               :key="index"
@@ -37,14 +41,14 @@
           </h3>
           <div class="flex">
             <div class="flex-1 font-bold">{{ order.cake.title }}</div>
-            <div>{{ order.cake.init_price }}</div>
+            <div>{{ order.cake.init_price * order.quantity }}</div>
           </div>
           <div class="flex justify-between">
             <div>
               <small class="block text-gray-400">
                 <span>
                   {{
-                    order.instructions.length
+                    order.instructions !== null && order.instructions.length
                       ? order.instructions
                       : "~No instruction~"
                   }}
@@ -60,7 +64,7 @@
               <button
                 class="bg-primary flex px-4 py-2 text-white mr-2"
                 @click="changeOrderStatus(order.id, 'placed')"
-                v-if="currentStatus in ['accepted']"
+                v-if="['accepted'].includes(currentStatus)"
               >
                 Place Order
               </button>
@@ -112,10 +116,15 @@ export default {
 
     getAllOrders();
 
+    console.log(store.state.order.orders);
+
     return {
       _status: status,
       currentStatus,
       orders: computed(() => store.state.order.orders),
+      changeOrderTab: () => {
+        getAllOrders();
+      },
       async changeOrderStatus(id, status) {
         await store.dispatch("order/changeOrderStatus", {
           id,

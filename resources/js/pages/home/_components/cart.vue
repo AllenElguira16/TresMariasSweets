@@ -2,7 +2,7 @@
   <div>
     <div class="flex">
       <div class="flex-1">{{ cart.title }}</div>
-      <div>{{ cart.init_price }}</div>
+      <div>{{ cart.init_price * cart.quantity }}</div>
     </div>
     <div class="flex justify-between">
       <div>

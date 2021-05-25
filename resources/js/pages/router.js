@@ -42,7 +42,7 @@ const routes = [
     component: Admin,
     children: [
       {
-        path: '/admin/cakes',
+        path: '/admin',
         component: AdminCakeList
       },
       {

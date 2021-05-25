@@ -17,7 +17,7 @@
             <div>Home</div>
           </router-link>
         </li>
-        <li
+        <!-- <li
           class="cursor-pointer hover:bg-primary hover:text-white rounded select-none text-center p-2"
         >
           <router-link to="/admin/cakes">
@@ -26,7 +26,7 @@
             </div>
             <div>Cakes</div>
           </router-link>
-        </li>
+        </li> -->
         <li
           class="cursor-pointer hover:bg-primary hover:text-white rounded select-none text-center p-2"
         >
