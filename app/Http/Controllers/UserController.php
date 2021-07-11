@@ -8,8 +8,9 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UserController extends Controller
 {
-    public function SignUp(Request $request) {
-
+    public function SignUp(Request $request)
+    {
+        // Hello World
         if (!$request->firstname || !$request->lastname || !$request->email || !$request->password) {
             return response()->json([
                 'success' => false,
@@ -21,21 +22,21 @@ class UserController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'firstname should be atleast 2 or more characters',
-            ]);    
+            ]);
         }
 
         if (count_chars($request->lastname) <= 2) {
             return response()->json([
                 'success' => false,
                 'message' => 'firstname should be atleast 2 or more characters',
-            ]);    
+            ]);
         }
 
         if (count_chars($request->password) <= 8) {
             return response()->json([
                 'success' => false,
                 'message' => 'password should be atleast 8 or more characters',
-            ]);    
+            ]);
         }
 
         $id = User::insert([
@@ -55,7 +56,8 @@ class UserController extends Controller
         ]);
     }
 
-    public function SignIn(Request $request) {
+    public function SignIn(Request $request)
+    {
         if ($request->session()->has('user')) {
             return response()->json([
                 'success' => false,
@@ -85,7 +87,7 @@ class UserController extends Controller
                 'message' => 'password did not match',
             ]);
         }
-            
+
         $request->session()->put('user', $user);
 
         return response()->json([
@@ -95,7 +97,8 @@ class UserController extends Controller
         ]);
     }
 
-    public function EditAccount(Request $request) {
+    public function EditAccount(Request $request)
+    {
 
         if (!$request->firstname || !$request->lastname || !$request->email || !$request->password) {
             return response()->json([
@@ -108,28 +111,28 @@ class UserController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'firstname should be atleast 2 or more characters',
-            ]);    
+            ]);
         }
 
         if (count_chars($request->lastname) <= 2) {
             return response()->json([
                 'success' => false,
                 'message' => 'firstname should be atleast 2 or more characters',
-            ]);    
+            ]);
         }
 
         if (count_chars($request->password) <= 8) {
             return response()->json([
                 'success' => false,
                 'message' => 'password should be atleast 8 or more characters',
-            ]);    
+            ]);
         }
 
         User::find($request->id)->update([
             'firstname' => $request->firstname,
             'lastname' => $request->lastname,
             'email' => $request->email,
-            'password' => $request->password    
+            'password' => $request->password
         ]);
 
         $user = User::find($request->id);
@@ -141,12 +144,13 @@ class UserController extends Controller
         ]);
     }
 
-    public function DeleteUser(Request $request) {
+    public function DeleteUser(Request $request)
+    {
         if (!$request->session()->has('user')) {
             return [
                 'success' => false,
                 'message' => 'You\'re not currently signed in'
-            ];    
+            ];
         }
 
         $user = User::where('id', $request->id);
@@ -174,17 +178,18 @@ class UserController extends Controller
         ];
     }
 
-    public function GetUser(Request $request) {
+    public function GetUser(Request $request)
+    {
         if (!$request->session()->has('user')) {
             return [
                 'success' => false,
                 'message' => 'You\'re not currently signed in'
-            ];    
+            ];
         }
 
         $user = $request->session()->get('user');
         $user = User::find($user->id);
-        
+
         if (!$user) {
             return response()->json([
                 'success' => false,
@@ -203,21 +208,22 @@ class UserController extends Controller
         ];
     }
 
-    public function DestroyUserSession(Request $request) {
+    public function DestroyUserSession(Request $request)
+    {
         if (!$request->session()->has('user')) {
             return [
                 'success' => false,
                 'message' => 'You\'re not currently signed in'
-            ];    
+            ];
         }
-        
+
         $request->session()->flush();
-        
+
         if ($request->session()->has('user')) {
             return [
                 'success' => false,
                 'message' => 'Error signing out'
-            ];    
+            ];
         }
 
         return [
